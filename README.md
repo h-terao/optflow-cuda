@@ -19,8 +19,11 @@ You can build a container for this script as follows:
 sudo singularity build env.sif singularity/env111.def
 
 # CUDA 10.1
-sudo singularity build env.sif singularity/env111.def
+sudo singularity build env.sif singularity/env101.def
 ```
+
+Note that you don't have to install cuda in your computer, and only a nvidia driver is required.
+If nvidia driver in your computer is old and cuda 11.1 is not supported, use `env101.def`.
 
 ## Usage
 If you use a singularity container, you can simply run `calc_flow.py` as follows:
