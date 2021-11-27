@@ -8,6 +8,7 @@ GPU acceleration and multi-processing are supported.
 - cv2 (CUDA)
 - h5py
 - tqdm
+- ffmpeg
 
 ## Installation
 
