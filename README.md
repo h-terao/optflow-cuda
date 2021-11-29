@@ -32,3 +32,35 @@ singularity exec --nv env.sif python calc_flow.py -i <input directory> -o <outpu
 ```
 
 Please see `calc_flow.py` to check other arguments.
+
+## Loading
+You can load extracted optical flows and RGB frames as like:
+
+```python
+import io
+
+import numpy
+import h5py
+from PIL import Image
+
+filename = "hdf5/x.hdf5"  # path to the target file.
+
+
+with h5py.File(filename, "r") as f:
+    representation = "RGB"  # specify `Flow` if you want to load optical flow.
+    n_frames = len(f[representation])
+
+    # In this snippet, frame index is randomly sampled.
+    frame_idx = numpy.random.randint(n_frames)
+    frame_key = sorted(f[representation])[frame_idx]
+    buffer = f[representation][...]
+
+    # decode `buffer` to obtain the image.
+    image_bin = io.BytesIO(buffer)
+    image = Image.open(image_bin)
+    image = numpy.array(image)
+
+    # the 3rd channel of optical flow is dummy (filled by zeros).
+    if representation == "Flow":
+        image = image[:2]
+```
